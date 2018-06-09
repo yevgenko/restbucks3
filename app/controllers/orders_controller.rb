@@ -31,10 +31,6 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-
-        @order.create_payment
-        @order.update_attribute :status, 'payment-expected'
-
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else

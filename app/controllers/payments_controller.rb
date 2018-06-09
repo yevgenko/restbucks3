@@ -41,13 +41,7 @@ class PaymentsController < ApplicationController
   # PATCH/PUT /payments/1.json
   def update
     respond_to do |format|
-      # TODO: possibly process payment through 3rd party service
-      # TODO: record payment date
-      # TODO: validate order status, i.e. "payment-expected" only!
       if @payment.update(payment_params)
-
-        @payment.order.update_attribute :status, 'preparing'
-
         format.html { redirect_to @payment.order, notice: 'Payment was successfully updated.' }
         format.json { render :show, status: :ok, location: @payment.order }
       else
