@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card_number: MyString
+  card_type: MyString
+  order: one
+
+two:
+  card_number: MyString
+  card_type: MyString
+  order: two
