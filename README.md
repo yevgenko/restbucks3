@@ -1,24 +1,7 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Observations
 
-Things you may want to cover:
+Without hypermedia clients will have to implement state transitions
+and, as a result, will be coupled to particular activities flow.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Any change to the flow would broke the client(s).
