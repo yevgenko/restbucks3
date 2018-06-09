@@ -26,8 +26,15 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
 
+    # default status
+    @order.status = 'pending'
+
     respond_to do |format|
       if @order.save
+
+        @order.create_payment
+        @order.update_attribute :status, 'payment-expected'
+
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -54,6 +61,8 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
+    # TODO: alternatively cancelled
+    # but then we need to filter them out
     @order.destroy
     respond_to do |format|
       format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
@@ -69,6 +78,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:items, :status)
+      params.require(:order).permit(:items)
     end
 end

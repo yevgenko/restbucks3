@@ -41,9 +41,15 @@ class PaymentsController < ApplicationController
   # PATCH/PUT /payments/1.json
   def update
     respond_to do |format|
+      # TODO: possibly process payment through 3rd party service
+      # TODO: record payment date
+      # TODO: validate order status, i.e. "payment-expected" only!
       if @payment.update(payment_params)
-        format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @payment }
+
+        @payment.order.update_attribute :status, 'preparing'
+
+        format.html { redirect_to @payment.order, notice: 'Payment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @payment.order }
       else
         format.html { render :edit }
         format.json { render json: @payment.errors, status: :unprocessable_entity }
@@ -69,6 +75,6 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      params.require(:payment).permit(:card_number, :card_type, :order_id)
+      params.require(:payment).permit(:card_number, :card_type)
     end
 end

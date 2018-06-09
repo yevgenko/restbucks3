@@ -10,5 +10,6 @@
   <%= @order.status %>
 </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to_unless @order.preparing?, 'Pay', edit_payment_path(@order.payment) %> |
+<%= link_to_unless @order.preparing?, 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
